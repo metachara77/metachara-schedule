@@ -437,8 +437,13 @@ function makeEventElement(event) {
 div.style.cursor = "pointer";
 
 div.addEventListener("click", () => {
-  const details = event.description || "詳細はありません";
-  alert((event.summary || "予定") + "\n\n" + details);
+  document.getElementById("eventDetailTitle").textContent =
+    event.summary || "予定";
+
+  document.getElementById("eventDetailText").textContent =
+    event.description || "詳細はありません";
+
+  document.getElementById("eventDetail").style.display = "block";
 });
   div.title = event.summary || "";
 
@@ -556,6 +561,26 @@ document.getElementById("todayButton").addEventListener("click", () => {
   await renderCalendar();
 })();
 </script>
-
+<div id="eventDetail" style="
+  display:none;
+  position:fixed;
+  left:16px;
+  right:16px;
+  bottom:20px;
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 4px 20px rgba(0,0,0,.25);
+  z-index:9999;
+">
+  <div id="eventDetailTitle" style="font-weight:bold;font-size:18px;margin-bottom:8px;"></div>
+  <div id="eventDetailText" style="font-size:14px;white-space:pre-wrap;"></div>
+  <button id="eventDetailClose" style="margin-top:15px;padding:8px 16px;">閉じる</button>
+</div>
+  <script>
+document.getElementById("eventDetailClose").addEventListener("click", () => {
+  document.getElementById("eventDetail").style.display = "none";
+});
+</script>
 </body>
 </html>
