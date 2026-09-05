@@ -11,15 +11,15 @@
   <meta property="og:title" content="METACHARA | September Schedule">
   <meta property="og:description" content="メタチャラ 9月スケジュール">
   <meta property="og:url" content="https://metachara77.github.io/metachara-schedule/">
-  <meta property="og:image" content="https://metachara77.github.io/metachara-schedule/september.jpg">
-  <meta property="og:image:secure_url" content="https://metachara77.github.io/metachara-schedule/september.jpg">
+  <meta property="og:image" content="https://metachara77.github.io/metachara-schedule/september.jpg?v=202609">
+  <meta property="og:image:secure_url" content="https://metachara77.github.io/metachara-schedule/september.jpg?v=202609">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:alt" content="METACHARA September Schedule">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="METACHARA | September Schedule">
   <meta name="twitter:description" content="メタチャラ 9月スケジュール">
-  <meta name="twitter:image" content="https://metachara77.github.io/metachara-schedule/september.jpg">
+  <meta name="twitter:image" content="https://metachara77.github.io/metachara-schedule/september.jpg?v=202609">
 
   <style>
     * {
@@ -28,13 +28,11 @@
 
     html, body {
       margin: 0;
+      padding: 0;
       background: #fff;
       color: #202124;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
         "Noto Sans JP", sans-serif;
-    }
-
-    body {
       overflow-x: hidden;
     }
 
@@ -49,6 +47,7 @@
       display: block;
       width: 100%;
       height: auto;
+      margin: 0;
     }
 
     .calendar-app {
@@ -57,23 +56,17 @@
     }
 
     .toolbar {
-      height: 86px;
+      height: 72px;
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 0 20px;
+      padding: 0 18px;
       border-bottom: 1px solid #dadce0;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(255,255,255,.96);
-      backdrop-filter: blur(8px);
+      background: #fff;
     }
 
     .month-title {
       font-size: 28px;
       font-weight: 500;
-      white-space: nowrap;
     }
 
     .nav {
@@ -83,50 +76,64 @@
     }
 
     .nav button {
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
       border: 0;
       border-radius: 50%;
       background: #f1f3f4;
-      font-size: 22px;
+      color: #1a73e8;
+      font-size: 23px;
       cursor: pointer;
+    }
+
+    .nav .today {
+      font-size: 0;
+    }
+
+    .nav .today::after {
+      content: "";
+      display: block;
+      width: 19px;
+      height: 19px;
+      margin: auto;
+      border-radius: 50%;
+      background: #1a73e8;
     }
 
     .weekdays {
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      height: 48px;
       border-bottom: 1px solid #dadce0;
-      background: #fff;
     }
 
     .weekday {
-      text-align: center;
-      padding: 12px 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 14px;
-      color: #5f6368;
       font-weight: 500;
+      color: #5f6368;
     }
 
     .weekday:first-child {
       color: #1a73e8;
     }
 
-    .weekday:last-child {
-      color: #5f6368;
-    }
-
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
-      background: #dadce0;
       gap: 1px;
+      background: #dadce0;
+      border-bottom: 1px solid #dadce0;
     }
 
     .day {
-      min-height: 150px;
+      min-width: 0;
+      min-height: 108px;
+      padding: 5px 3px 6px;
       background: #fff;
-      padding: 8px 5px 10px;
-      overflow: visible;
+      overflow: hidden;
     }
 
     .day.other-month {
@@ -134,14 +141,14 @@
     }
 
     .day-number {
-      width: 32px;
-      height: 32px;
-      margin: 0 auto 6px;
+      width: 29px;
+      height: 29px;
+      margin: 0 auto 4px;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      font-size: 16px;
+      font-size: 15px;
       color: #202124;
     }
 
@@ -151,49 +158,86 @@
 
     .day-number.today {
       background: #1a73e8;
-      color: white;
+      color: #fff;
       font-weight: 600;
     }
 
     .events {
+      width: 100%;
+      min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
+      padding: 0 1px;
+      overflow: hidden;
     }
 
     .event {
-      min-height: 25px;
-      border-radius: 5px;
-      padding: 3px 5px;
-      font-size: 13px;
-      line-height: 18px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 2px 1px;
+      border-radius: 4px;
+      box-sizing: border-box;
+
+      font-size: 10px;
       font-weight: 500;
-      white-space: normal;
-overflow: hidden;
-text-overflow: clip;
-word-break: break-word;
-    }
+      line-height: 16px;
 
-    .event.default {
-      background: #4285f4;
-      color: white;
-    }
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: clip;
 
-    .holiday {
-      background: #43a047;
-      color: white;
+      pointer-events: auto;
+      cursor: pointer;
     }
 
     .error {
-      padding: 30px 20px;
+      padding: 24px 15px;
       text-align: center;
       color: #d93025;
+      font-size: 14px;
+    }
+
+    #eventDetail {
+      display: none;
+      position: fixed;
+      left: 16px;
+      right: 16px;
+      bottom: 20px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.25);
+      z-index: 9999;
+    }
+
+    #eventDetailTitle {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    #eventDetailText {
+      font-size: 14px;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+
+    #eventDetailClose {
+      margin-top: 15px;
+      padding: 8px 16px;
+      border: 0;
+      border-radius: 8px;
+      background: #f1f3f4;
       font-size: 14px;
     }
 
     @media (max-width: 700px) {
       .page {
         width: 100vw;
+        max-width: none;
       }
 
       .toolbar {
@@ -202,66 +246,54 @@ word-break: break-word;
       }
 
       .month-title {
-        font-size: 25px;
+        font-size: 26px;
       }
 
       .nav button {
-        width: 38px;
-        height: 38px;
+        width: 40px;
+        height: 40px;
+      }
+
+      .weekdays {
+        height: 42px;
       }
 
       .weekday {
-        padding: 10px 1px;
         font-size: 13px;
       }
 
- .day {
-  min-height: 92px;
-  padding: 4px 0px 5px;
-}
+      .day {
+        min-height: 92px;
+        padding: 4px 2px 5px;
+        overflow: hidden;
+      }
 
-.day-number {
-  width: 27px;
-  height: 27px;
-  margin-bottom: 3px;
-  font-size: 14px;
-}
+      .day-number {
+        width: 27px;
+        height: 27px;
+        margin-bottom: 3px;
+        font-size: 14px;
+      }
 
- {
-  min-height: 20px;
-  padding: 2px 1px;
-  font-size: 10px;
-  line-height: 16px;
+      .events {
+        width: 100%;
+        padding: 0 1px;
+        overflow: hidden;
+      }
 
- 
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: clip;
-  word-break: normal;
-}
-    .events {
-  width: 100%;
-  padding: 0 3px;
-  overflow: hidden;
-}
-
-.event {
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 !important;
-  padding: 2px 1px !important;
-  box-sizing: border-box;
-  font-size: 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: clip;
-  pointer-events: auto;
-cursor: pointer;
-}
-
-.day {
-  overflow: hidden;
-}
+      .event {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 2px 1px !important;
+        box-sizing: border-box;
+        font-size: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;
+        pointer-events: auto;
+        cursor: pointer;
+      }
     }
   </style>
 </head>
@@ -283,7 +315,7 @@ cursor: pointer;
 
       <div class="nav">
         <button id="prevMonth" aria-label="前の月">‹</button>
-        <button id="todayButton" aria-label="今月">●</button>
+        <button id="todayButton" class="today" aria-label="今月"></button>
         <button id="nextMonth" aria-label="次の月">›</button>
       </div>
     </div>
@@ -304,311 +336,336 @@ cursor: pointer;
   </section>
 </div>
 
+<div id="eventDetail">
+  <div id="eventDetailTitle"></div>
+  <div id="eventDetailText"></div>
+  <button id="eventDetailClose">閉じる</button>
+</div>
+
 <script>
-const API_KEY = "AIzaSyDfHUMGLwd0-EO5kr96rbQ5OycwtNUi01M";
+  const API_KEY = "AIzaSyDfHUMGLwd0-EO5kr96rbQ5OycwtNUi01M";
 
-const CALENDAR_ID = "metaiyo77@gmail.com";
+  const CALENDAR_ID = "metaiyo77@gmail.com";
 
-/* 日本の祝日カレンダー */
-const HOLIDAY_CALENDAR_ID =
-  "ja.japanese#holiday@group.v.calendar.google.com";
+  const HOLIDAY_CALENDAR_ID =
+    "ja.japanese#holiday@group.v.calendar.google.com";
 
-let displayDate = new Date();
-displayDate.setDate(1);
+  let displayDate = new Date();
+  displayDate.setDate(1);
 
-let googleEventColors = {};
+  const monthTitle = document.getElementById("monthTitle");
+  const calendarGrid = document.getElementById("calendarGrid");
+  const errorBox = document.getElementById("errorBox");
 
-const monthTitle = document.getElementById("monthTitle");
-const calendarGrid = document.getElementById("calendarGrid");
-const errorBox = document.getElementById("errorBox");
+  function pad(n) {
+    return String(n).padStart(2, "0");
+  }
 
-function pad(n) {
-  return String(n).padStart(2, "0");
-}
+  function localDateKey(date) {
+    return (
+      date.getFullYear() +
+      "-" +
+      pad(date.getMonth() + 1) +
+      "-" +
+      pad(date.getDate())
+    );
+  }
 
-function localDateKey(date) {
-  return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
-}
+  function monthRange(date) {
+    const first = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      1
+    );
 
-function monthRange(date) {
-  const start = new Date(date.getFullYear(), date.getMonth(), 1);
+    const start = new Date(first);
+    start.setDate(first.getDate() - first.getDay());
 
-  const gridStart = new Date(start);
-  gridStart.setDate(start.getDate() - start.getDay());
+    const end = new Date(start);
+    end.setDate(start.getDate() + 42);
 
-  const gridEnd = new Date(gridStart);
-  gridEnd.setDate(gridStart.getDate() + 42);
+    return { start, end };
+  }
 
-  return {
-    start: gridStart,
-    end: gridEnd
-  };
-}
+  async function fetchEvents(calendarId, start, end) {
+    const params = new URLSearchParams({
+      key: API_KEY,
+      timeMin: start.toISOString(),
+      timeMax: end.toISOString(),
+      singleEvents: "true",
+      orderBy: "startTime",
+      maxResults: "2500"
+    });
 
-async function loadGoogleColors() {
-  try {
     const url =
-      `https://www.googleapis.com/calendar/v3/colors?key=${encodeURIComponent(API_KEY)}`;
+      "https://www.googleapis.com/calendar/v3/calendars/" +
+      encodeURIComponent(calendarId) +
+      "/events?" +
+      params.toString();
 
     const res = await fetch(url);
 
-    if (!res.ok) return;
+    if (!res.ok) {
+      throw new Error(await res.text());
+    }
 
     const data = await res.json();
-    googleEventColors = data.event || {};
-  } catch (e) {
-    console.log("Could not load event colors", e);
-  }
-}
-
-async function fetchEvents(calendarId, start, end) {
-  const params = new URLSearchParams({
-    key: API_KEY,
-    timeMin: start.toISOString(),
-    timeMax: end.toISOString(),
-    singleEvents: "true",
-    orderBy: "startTime",
-    maxResults: "2500"
-  });
-
-  const url =
-    `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?${params}`;
-
-  const res = await fetch(url);
-
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text);
+    return data.items || [];
   }
 
-  const data = await res.json();
-  return data.items || [];
-}
+  function eventDateKey(event) {
+    if (event.start && event.start.date) {
+      return event.start.date;
+    }
 
-function eventDateKey(event) {
-  if (event.start?.date) {
-    return event.start.date;
+    if (event.start && event.start.dateTime) {
+      return localDateKey(
+        new Date(event.start.dateTime)
+      );
+    }
+
+    return "";
   }
 
-  if (event.start?.dateTime) {
-    const d = new Date(event.start.dateTime);
-    return localDateKey(d);
-  }
+  function eventStyle(event) {
 
-  return "";
-}
+    if (event.__holiday) {
+      return {
+        background: "#34a853",
+        color: "#ffffff"
+      };
+    }
 
-function eventStyle(event) {
+    const eventColors = {
+      "1":  "#a4bdfc",
+      "2":  "#7ae7bf",
+      "3":  "#dbadff",
+      "4":  "#ff887c",
+      "5":  "#fbd75b",
+      "6":  "#ffb878",
+      "7":  "#46d6db",
+      "8":  "#e1e1e1",
+      "9":  "#5484ed",
+      "10": "#51b749",
+      "11": "#dc2127"
+    };
 
-  // 日本の祝日
-  if (event.__holiday) {
+    if (event.colorId && eventColors[event.colorId]) {
+      return {
+        background: eventColors[event.colorId],
+        color:
+          event.colorId === "5" ||
+          event.colorId === "8"
+            ? "#202124"
+            : "#ffffff"
+      };
+    }
+
     return {
-      background: "#34a853",
+      background: "#4285f4",
       color: "#ffffff"
     };
   }
 
-  // Google Calendar の予定カラー
-  const eventColors = {
-    "1":  "#a4bdfc", // ラベンダー
-    "2":  "#7ae7bf", // セージ
-    "3":  "#dbadff", // グレープ
-    "4":  "#ff887c", // フラミンゴ
-    "5":  "#fbd75b", // バナナ
-    "6":  "#ffb878", // タンジェリン
-    "7":  "#46d6db", // ピーコック
-    "8":  "#e1e1e1", // グラファイト
-    "9":  "#5484ed", // ブルーベリー
-    "10": "#51b749", // バジル
-    "11": "#dc2127"  // トマト
-  };
+  function makeEventElement(event) {
+    const div = document.createElement("div");
+    div.className = "event";
 
-  if (event.colorId && eventColors[event.colorId]) {
-    return {
-      background: eventColors[event.colorId],
-      color: ["5", "8"].includes(event.colorId)
-        ? "#202124"
-        : "#ffffff"
-    };
+    div.textContent =
+      event.summary || "予定";
+
+    const style = eventStyle(event);
+
+    div.style.background = style.background;
+    div.style.color = style.color;
+    div.style.cursor = "pointer";
+
+    div.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      document.getElementById("eventDetailTitle").textContent =
+        event.summary || "予定";
+
+      document.getElementById("eventDetailText").textContent =
+        event.description || "詳細はありません";
+
+      document.getElementById("eventDetail").style.display =
+        "block";
+    }, true);
+
+    div.title = event.summary || "";
+
+    return div;
   }
 
-  // 色指定なしの予定
-  return {
-    background: "#4285f4",
-    color: "#ffffff"
-  };
-}
+  async function renderCalendar() {
+    errorBox.hidden = true;
+    calendarGrid.innerHTML = "";
 
-function makeEventElement(event) {
-  const div = document.createElement("div");
-  div.className =
-    "event" + (event.__holiday ? " holiday" : " default");
+    const month = displayDate.getMonth();
 
-  div.textContent =
-    event.summary || "予定";
+    monthTitle.textContent =
+      (month + 1) + "月";
 
-  const style = eventStyle(event);
+    const range =
+      monthRange(displayDate);
 
-  div.style.background = style.background;
-  div.style.color = style.color;
-div.style.cursor = "pointer";
+    let events = [];
 
-div.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+    try {
+      const result = await Promise.all([
+        fetchEvents(
+          CALENDAR_ID,
+          range.start,
+          range.end
+        ),
+        fetchEvents(
+          HOLIDAY_CALENDAR_ID,
+          range.start,
+          range.end
+        )
+      ]);
 
-  document.getElementById("eventDetailTitle").textContent =
-    event.summary || "予定";
+      const mainEvents = result[0];
+      const holidays = result[1];
 
-  document.getElementById("eventDetailText").textContent =
-    event.description || "詳細はありません";
+      holidays.forEach(function(event) {
+        event.__holiday = true;
+      });
 
-  document.getElementById("eventDetail").style.display = "block";
-}, true);
-  document.getElementById("eventDetailTitle").textContent =
-    event.summary || "予定";
+      events =
+        mainEvents.concat(holidays);
 
-  document.getElementById("eventDetailText").textContent =
-    event.description || "詳細はありません";
+    } catch (e) {
+      console.error(e);
 
-  document.getElementById("eventDetail").style.display = "block";
-});
-  div.title = event.summary || "";
+      errorBox.hidden = false;
+      errorBox.textContent =
+        "スケジュールを読み込めませんでした。少し時間を置いて再読み込みしてください。";
+    }
 
-  return div;
-}
+    const eventsByDate = {};
 
-async function renderCalendar() {
-  errorBox.hidden = true;
-  calendarGrid.innerHTML = "";
+    events.forEach(function(event) {
+      const key =
+        eventDateKey(event);
 
-  const year = displayDate.getFullYear();
-  const month = displayDate.getMonth();
+      if (!key) return;
 
-  monthTitle.textContent = `${month + 1}月`;
+      if (!eventsByDate[key]) {
+        eventsByDate[key] = [];
+      }
 
-  const {start, end} = monthRange(displayDate);
-
-  let events = [];
-
-  try {
-    const [mainEvents, holidays] = await Promise.all([
-      fetchEvents(CALENDAR_ID, start, end),
-      fetchEvents(HOLIDAY_CALENDAR_ID, start, end)
-    ]);
-
-    holidays.forEach(e => {
-      e.__holiday = true;
+      eventsByDate[key].push(event);
     });
 
-    events = [...mainEvents, ...holidays];
+    const today = new Date();
+    const cursor =
+      new Date(range.start);
 
-  } catch (e) {
-    console.error(e);
+    for (let i = 0; i < 42; i++) {
 
-    errorBox.hidden = false;
-    errorBox.textContent =
-      "スケジュールを読み込めませんでした。少し時間を置いて再読み込みしてください。";
+      const day =
+        document.createElement("div");
+
+      day.className = "day";
+
+      if (
+        cursor.getMonth() !== month
+      ) {
+        day.classList.add(
+          "other-month"
+        );
+      }
+
+      const number =
+        document.createElement("div");
+
+      number.className =
+        "day-number";
+
+      number.textContent =
+        cursor.getDate();
+
+      if (
+        cursor.getFullYear() === today.getFullYear() &&
+        cursor.getMonth() === today.getMonth() &&
+        cursor.getDate() === today.getDate()
+      ) {
+        number.classList.add(
+          "today"
+        );
+      }
+
+      day.appendChild(number);
+
+      const eventsWrap =
+        document.createElement("div");
+
+      eventsWrap.className =
+        "events";
+
+      const key =
+        localDateKey(cursor);
+
+      const dayEvents =
+        eventsByDate[key] || [];
+
+      dayEvents.forEach(function(event) {
+        eventsWrap.appendChild(
+          makeEventElement(event)
+        );
+      });
+
+      day.appendChild(eventsWrap);
+      calendarGrid.appendChild(day);
+
+      cursor.setDate(
+        cursor.getDate() + 1
+      );
+    }
   }
 
-  const eventsByDate = {};
-
-  events.forEach(event => {
-    const key = eventDateKey(event);
-
-    if (!key) return;
-
-    if (!eventsByDate[key]) {
-      eventsByDate[key] = [];
-    }
-
-    eventsByDate[key].push(event);
-  });
-
-  const today = new Date();
-  const cursor = new Date(start);
-
-  for (let i = 0; i < 42; i++) {
-
-    const day = document.createElement("div");
-    day.className = "day";
-
-    if (cursor.getMonth() !== month) {
-      day.classList.add("other-month");
-    }
-
-    const dayNumber = document.createElement("div");
-    dayNumber.className = "day-number";
-    dayNumber.textContent = cursor.getDate();
-
-    if (
-      cursor.getFullYear() === today.getFullYear() &&
-      cursor.getMonth() === today.getMonth() &&
-      cursor.getDate() === today.getDate()
-    ) {
-      dayNumber.classList.add("today");
-    }
-
-    day.appendChild(dayNumber);
-
-    const eventsWrap = document.createElement("div");
-    eventsWrap.className = "events";
-
-    const key = localDateKey(cursor);
-    const dayEvents = eventsByDate[key] || [];
-
-    dayEvents.forEach(event => {
-      eventsWrap.appendChild(makeEventElement(event));
+  document
+    .getElementById("prevMonth")
+    .addEventListener("click", function() {
+      displayDate.setMonth(
+        displayDate.getMonth() - 1
+      );
+      renderCalendar();
     });
 
-    day.appendChild(eventsWrap);
-    calendarGrid.appendChild(day);
+  document
+    .getElementById("nextMonth")
+    .addEventListener("click", function() {
+      displayDate.setMonth(
+        displayDate.getMonth() + 1
+      );
+      renderCalendar();
+    });
 
-    cursor.setDate(cursor.getDate() + 1);
-  }
-}
+  document
+    .getElementById("todayButton")
+    .addEventListener("click", function() {
+      displayDate =
+        new Date();
 
-document.getElementById("prevMonth").addEventListener("click", () => {
-  displayDate.setMonth(displayDate.getMonth() - 1);
+      displayDate.setDate(1);
+
+      renderCalendar();
+    });
+
+  document
+    .getElementById("eventDetailClose")
+    .addEventListener("click", function() {
+      document.getElementById(
+        "eventDetail"
+      ).style.display = "none";
+    });
+
   renderCalendar();
-});
-
-document.getElementById("nextMonth").addEventListener("click", () => {
-  displayDate.setMonth(displayDate.getMonth() + 1);
-  renderCalendar();
-});
-
-document.getElementById("todayButton").addEventListener("click", () => {
-  displayDate = new Date();
-  displayDate.setDate(1);
-  renderCalendar();
-});
-
-(async function init() {
-  await loadGoogleColors();
-  await renderCalendar();
-})();
 </script>
-<div id="eventDetail" style="
-  display:none;
-  position:fixed;
-  left:16px;
-  right:16px;
-  bottom:20px;
-  background:white;
-  border-radius:16px;
-  padding:20px;
-  box-shadow:0 4px 20px rgba(0,0,0,.25);
-  z-index:9999;
-">
-  <div id="eventDetailTitle" style="font-weight:bold;font-size:18px;margin-bottom:8px;"></div>
-  <div id="eventDetailText" style="font-size:14px;white-space:pre-wrap;"></div>
-  <button id="eventDetailClose" style="margin-top:15px;padding:8px 16px;">閉じる</button>
-</div>
-  <script>
-document.getElementById("eventDetailClose").addEventListener("click", () => {
-  document.getElementById("eventDetail").style.display = "none";
-});
-</script>
+
 </body>
 </html>
