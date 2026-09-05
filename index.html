@@ -434,7 +434,12 @@ function makeEventElement(event) {
 
   div.style.background = style.background;
   div.style.color = style.color;
+div.style.cursor = "pointer";
 
+div.addEventListener("click", () => {
+  const details = event.description || "詳細はありません";
+  alert((event.summary || "予定") + "\n\n" + details);
+});
   div.title = event.summary || "";
 
   return div;
