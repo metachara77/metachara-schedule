@@ -434,6 +434,12 @@ if ((event.summary || "").includes("〆切")) {
     color: "#ffffff"
   };
 }
+    if ((event.summary || "").includes("⭕")) {
+  return {
+    background: "#F8C000",
+    color: "#000000"
+  };
+}
     if (event.__holiday) {
       return {
         background: "#34a853",
