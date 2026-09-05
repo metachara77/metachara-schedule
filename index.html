@@ -179,7 +179,7 @@ word-break: break-word;
       color: white;
     }
 
-    .event.holiday {
+    .holiday {
       background: #43a047;
       color: white;
     }
@@ -227,7 +227,7 @@ word-break: break-word;
   font-size: 14px;
 }
 
-.event {
+ {
   min-height: 20px;
   padding: 2px 1px;
   font-size: 10px;
@@ -255,6 +255,8 @@ word-break: break-word;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: clip;
+  pointer-events: auto;
+cursor: pointer;
 }
 
 .day {
@@ -436,7 +438,18 @@ function makeEventElement(event) {
   div.style.color = style.color;
 div.style.cursor = "pointer";
 
-div.addEventListener("click", () => {
+div.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  document.getElementById("eventDetailTitle").textContent =
+    event.summary || "予定";
+
+  document.getElementById("eventDetailText").textContent =
+    event.description || "詳細はありません";
+
+  document.getElementById("eventDetail").style.display = "block";
+}, true);
   document.getElementById("eventDetailTitle").textContent =
     event.summary || "予定";
 
