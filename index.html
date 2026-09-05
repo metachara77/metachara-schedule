@@ -2,17 +2,15 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <title>METACHARA | September Schedule</title>
   <meta name="description" content="メタチャラ 9月スケジュール">
 
-  <!-- X / Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="METACHARA | September Schedule">
   <meta property="og:description" content="メタチャラ 9月スケジュール">
   <meta property="og:url" content="https://metachara77.github.io/metachara-schedule/">
-
   <meta property="og:image" content="https://metachara77.github.io/metachara-schedule/september.jpg">
   <meta property="og:image:secure_url" content="https://metachara77.github.io/metachara-schedule/september.jpg">
   <meta property="og:image:type" content="image/jpeg">
@@ -24,57 +22,507 @@
   <meta name="twitter:image" content="https://metachara77.github.io/metachara-schedule/september.jpg">
 
   <style>
-    html,body{
-      margin:0;
-      background:#000;
-      color:#fff;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    * {
+      box-sizing: border-box;
     }
 
-    .wrap{
-      max-width:1100px;
-      margin:0 auto;
-      padding:18px 12px 36px;
+    html, body {
+      margin: 0;
+      background: #fff;
+      color: #202124;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Noto Sans JP", sans-serif;
     }
 
-    .hero{
-      display:block;
-      width:100%;
-      height:auto;
-      margin:0 0 18px;
+    body {
+      overflow-x: hidden;
     }
 
-    .calendar{
-      width:100%;
-      height:760px;
-      border:0;
-      background:#fff;
-      border-radius:8px;
+    .page {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #fff;
     }
 
-    @media(max-width:700px){
-      .wrap{padding:8px 0 20px;}
-      .hero{margin-bottom:8px;}
-      .calendar{height:720px;border-radius:0;}
+    .hero {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .calendar-app {
+      width: 100%;
+      background: #fff;
+    }
+
+    .toolbar {
+      height: 86px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 20px;
+      border-bottom: 1px solid #dadce0;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(8px);
+    }
+
+    .month-title {
+      font-size: 28px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .nav button {
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 50%;
+      background: #f1f3f4;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border-bottom: 1px solid #dadce0;
+      background: #fff;
+    }
+
+    .weekday {
+      text-align: center;
+      padding: 12px 2px;
+      font-size: 14px;
+      color: #5f6368;
+      font-weight: 500;
+    }
+
+    .weekday:first-child {
+      color: #1a73e8;
+    }
+
+    .weekday:last-child {
+      color: #5f6368;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      background: #dadce0;
+      gap: 1px;
+    }
+
+    .day {
+      min-height: 150px;
+      background: #fff;
+      padding: 8px 5px 10px;
+      overflow: hidden;
+    }
+
+    .day.other-month {
+      background: #fafafa;
+    }
+
+    .day-number {
+      width: 32px;
+      height: 32px;
+      margin: 0 auto 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 16px;
+      color: #202124;
+    }
+
+    .other-month .day-number {
+      color: #80868b;
+    }
+
+    .day-number.today {
+      background: #1a73e8;
+      color: white;
+      font-weight: 600;
+    }
+
+    .events {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .event {
+      min-height: 25px;
+      border-radius: 5px;
+      padding: 3px 5px;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 500;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .event.default {
+      background: #4285f4;
+      color: white;
+    }
+
+    .event.holiday {
+      background: #43a047;
+      color: white;
+    }
+
+    .error {
+      padding: 30px 20px;
+      text-align: center;
+      color: #d93025;
+      font-size: 14px;
+    }
+
+    @media (max-width: 700px) {
+      .page {
+        width: 100vw;
+      }
+
+      .toolbar {
+        height: 72px;
+        padding: 0 14px;
+      }
+
+      .month-title {
+        font-size: 25px;
+      }
+
+      .nav button {
+        width: 38px;
+        height: 38px;
+      }
+
+      .weekday {
+        padding: 10px 1px;
+        font-size: 13px;
+      }
+
+      .day {
+        min-height: 145px;
+        padding: 6px 3px 8px;
+      }
+
+      .day-number {
+        width: 29px;
+        height: 29px;
+        margin-bottom: 5px;
+        font-size: 15px;
+      }
+
+      .event {
+        min-height: 24px;
+        padding: 3px 4px;
+        font-size: 12px;
+        line-height: 17px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="wrap">
 
-    <img
-      class="hero"
-      src="september.jpg"
-      alt="METACHARA September Schedule"
-    >
+<div class="page">
 
-    <iframe
-      class="calendar"
-      src="https://calendar.google.com/calendar/embed?src=metaiyo77%40gmail.com&ctz=Asia%2FTokyo&mode=MONTH&wkst=1&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0
-      loading="lazy">
-    </iframe>
+  <img
+    class="hero"
+    src="september.jpg"
+    alt="METACHARA September Schedule"
+  >
 
-  </main>
+  <section class="calendar-app">
+
+    <div class="toolbar">
+      <div class="month-title" id="monthTitle"></div>
+
+      <div class="nav">
+        <button id="prevMonth" aria-label="前の月">‹</button>
+        <button id="todayButton" aria-label="今月">●</button>
+        <button id="nextMonth" aria-label="次の月">›</button>
+      </div>
+    </div>
+
+    <div class="weekdays">
+      <div class="weekday">日</div>
+      <div class="weekday">月</div>
+      <div class="weekday">火</div>
+      <div class="weekday">水</div>
+      <div class="weekday">木</div>
+      <div class="weekday">金</div>
+      <div class="weekday">土</div>
+    </div>
+
+    <div id="calendarGrid" class="calendar-grid"></div>
+    <div id="errorBox" class="error" hidden></div>
+
+  </section>
+</div>
+
+<script>
+const API_KEY = "AIzaSyDfHUMGLwd0-EO5kr96rbQ5OycwtNUi01M";
+
+const CALENDAR_ID = "metaiyo77@gmail.com";
+
+/* 日本の祝日カレンダー */
+const HOLIDAY_CALENDAR_ID =
+  "ja.japanese#holiday@group.v.calendar.google.com";
+
+let displayDate = new Date();
+displayDate.setDate(1);
+
+let googleEventColors = {};
+
+const monthTitle = document.getElementById("monthTitle");
+const calendarGrid = document.getElementById("calendarGrid");
+const errorBox = document.getElementById("errorBox");
+
+function pad(n) {
+  return String(n).padStart(2, "0");
+}
+
+function localDateKey(date) {
+  return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
+}
+
+function monthRange(date) {
+  const start = new Date(date.getFullYear(), date.getMonth(), 1);
+
+  const gridStart = new Date(start);
+  gridStart.setDate(start.getDate() - start.getDay());
+
+  const gridEnd = new Date(gridStart);
+  gridEnd.setDate(gridStart.getDate() + 42);
+
+  return {
+    start: gridStart,
+    end: gridEnd
+  };
+}
+
+async function loadGoogleColors() {
+  try {
+    const url =
+      `https://www.googleapis.com/calendar/v3/colors?key=${encodeURIComponent(API_KEY)}`;
+
+    const res = await fetch(url);
+
+    if (!res.ok) return;
+
+    const data = await res.json();
+    googleEventColors = data.event || {};
+  } catch (e) {
+    console.log("Could not load event colors", e);
+  }
+}
+
+async function fetchEvents(calendarId, start, end) {
+  const params = new URLSearchParams({
+    key: API_KEY,
+    timeMin: start.toISOString(),
+    timeMax: end.toISOString(),
+    singleEvents: "true",
+    orderBy: "startTime",
+    maxResults: "2500"
+  });
+
+  const url =
+    `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?${params}`;
+
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text);
+  }
+
+  const data = await res.json();
+  return data.items || [];
+}
+
+function eventDateKey(event) {
+  if (event.start?.date) {
+    return event.start.date;
+  }
+
+  if (event.start?.dateTime) {
+    const d = new Date(event.start.dateTime);
+    return localDateKey(d);
+  }
+
+  return "";
+}
+
+function eventStyle(event) {
+  if (event.__holiday) {
+    return {
+      background: "#43a047",
+      color: "#fff"
+    };
+  }
+
+  if (
+    event.colorId &&
+    googleEventColors[event.colorId]
+  ) {
+    const c = googleEventColors[event.colorId];
+
+    return {
+      background: c.background,
+      color: c.foreground || "#fff"
+    };
+  }
+
+  return {
+    background: "#4285f4",
+    color: "#fff"
+  };
+}
+
+function makeEventElement(event) {
+  const div = document.createElement("div");
+  div.className =
+    "event" + (event.__holiday ? " holiday" : " default");
+
+  div.textContent =
+    event.summary || "予定";
+
+  const style = eventStyle(event);
+
+  div.style.background = style.background;
+  div.style.color = style.color;
+
+  div.title = event.summary || "";
+
+  return div;
+}
+
+async function renderCalendar() {
+  errorBox.hidden = true;
+  calendarGrid.innerHTML = "";
+
+  const year = displayDate.getFullYear();
+  const month = displayDate.getMonth();
+
+  monthTitle.textContent = `${month + 1}月`;
+
+  const {start, end} = monthRange(displayDate);
+
+  let events = [];
+
+  try {
+    const [mainEvents, holidays] = await Promise.all([
+      fetchEvents(CALENDAR_ID, start, end),
+      fetchEvents(HOLIDAY_CALENDAR_ID, start, end)
+    ]);
+
+    holidays.forEach(e => {
+      e.__holiday = true;
+    });
+
+    events = [...mainEvents, ...holidays];
+
+  } catch (e) {
+    console.error(e);
+
+    errorBox.hidden = false;
+    errorBox.textContent =
+      "スケジュールを読み込めませんでした。少し時間を置いて再読み込みしてください。";
+  }
+
+  const eventsByDate = {};
+
+  events.forEach(event => {
+    const key = eventDateKey(event);
+
+    if (!key) return;
+
+    if (!eventsByDate[key]) {
+      eventsByDate[key] = [];
+    }
+
+    eventsByDate[key].push(event);
+  });
+
+  const today = new Date();
+  const cursor = new Date(start);
+
+  for (let i = 0; i < 42; i++) {
+
+    const day = document.createElement("div");
+    day.className = "day";
+
+    if (cursor.getMonth() !== month) {
+      day.classList.add("other-month");
+    }
+
+    const dayNumber = document.createElement("div");
+    dayNumber.className = "day-number";
+    dayNumber.textContent = cursor.getDate();
+
+    if (
+      cursor.getFullYear() === today.getFullYear() &&
+      cursor.getMonth() === today.getMonth() &&
+      cursor.getDate() === today.getDate()
+    ) {
+      dayNumber.classList.add("today");
+    }
+
+    day.appendChild(dayNumber);
+
+    const eventsWrap = document.createElement("div");
+    eventsWrap.className = "events";
+
+    const key = localDateKey(cursor);
+    const dayEvents = eventsByDate[key] || [];
+
+    dayEvents.forEach(event => {
+      eventsWrap.appendChild(makeEventElement(event));
+    });
+
+    day.appendChild(eventsWrap);
+    calendarGrid.appendChild(day);
+
+    cursor.setDate(cursor.getDate() + 1);
+  }
+}
+
+document.getElementById("prevMonth").addEventListener("click", () => {
+  displayDate.setMonth(displayDate.getMonth() - 1);
+  renderCalendar();
+});
+
+document.getElementById("nextMonth").addEventListener("click", () => {
+  displayDate.setMonth(displayDate.getMonth() + 1);
+  renderCalendar();
+});
+
+document.getElementById("todayButton").addEventListener("click", () => {
+  displayDate = new Date();
+  displayDate.setDate(1);
+  renderCalendar();
+});
+
+(async function init() {
+  await loadGoogleColors();
+  await renderCalendar();
+})();
+</script>
+
 </body>
 </html>
