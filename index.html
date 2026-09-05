@@ -428,7 +428,12 @@
   }
 
   function eventStyle(event) {
-
+if ((event.summary || "").includes("〆切")) {
+  return {
+    background: "#E53935",
+    color: "#ffffff"
+  };
+}
     if (event.__holiday) {
       return {
         background: "#34a853",
