@@ -399,28 +399,43 @@ function eventDateKey(event) {
 }
 
 function eventStyle(event) {
+
+  // 日本の祝日
   if (event.__holiday) {
     return {
-      background: "#43a047",
-      color: "#fff"
+      background: "#34a853",
+      color: "#ffffff"
     };
   }
 
-  if (
-    event.colorId &&
-    googleEventColors[event.colorId]
-  ) {
-    const c = googleEventColors[event.colorId];
+  // Google Calendar の予定カラー
+  const eventColors = {
+    "1":  "#a4bdfc", // ラベンダー
+    "2":  "#7ae7bf", // セージ
+    "3":  "#dbadff", // グレープ
+    "4":  "#ff887c", // フラミンゴ
+    "5":  "#fbd75b", // バナナ
+    "6":  "#ffb878", // タンジェリン
+    "7":  "#46d6db", // ピーコック
+    "8":  "#e1e1e1", // グラファイト
+    "9":  "#5484ed", // ブルーベリー
+    "10": "#51b749", // バジル
+    "11": "#dc2127"  // トマト
+  };
 
+  if (event.colorId && eventColors[event.colorId]) {
     return {
-      background: c.background,
-      color: c.foreground || "#fff"
+      background: eventColors[event.colorId],
+      color: ["5", "8"].includes(event.colorId)
+        ? "#202124"
+        : "#ffffff"
     };
   }
 
+  // 色指定なしの予定
   return {
     background: "#4285f4",
-    color: "#fff"
+    color: "#ffffff"
   };
 }
 
